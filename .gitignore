@@ -1,0 +1,17 @@
+/film-react/node_modules
+/film-react/coverage
+/film-react/build
+
+/film-react/.DS_Store
+/film-react/.env
+/film-react/npm-debug.log*
+/film-react/yarn-debug.log*
+/film-react/yarn-error.log*
+
+/film-react/src/assets
+/film-react/.idea
+
+/films-express/node_modules
+/films-express/dist
+
+/.idea

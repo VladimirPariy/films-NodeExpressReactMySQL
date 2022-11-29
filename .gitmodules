@@ -1,0 +1,3 @@
+[submodule "film-react"]
+	path = film-react
+	url = https://github.com/VladimirPariy/films-app
