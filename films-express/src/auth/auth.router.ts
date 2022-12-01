@@ -1,11 +1,15 @@
-import Router from 'express';
+import {Router} from 'express';
 import AuthController from "./auth.controller";
-import {userSchema, registrationValidation} from "../middleware/yup";
+import {userSchema, registrationValidation} from "../middleware/yup/validationRegistration";
 
-const authRouter = Router();
+export const createAuthRouter = (): Router => {
+	const authRouter = Router();
+	
+	authRouter.post('/registration', registrationValidation(userSchema), AuthController.registration);
+	authRouter.post('/login', AuthController.login);
+	
+	
+	return authRouter
+}
 
-authRouter.post('/registration', registrationValidation(userSchema), AuthController.registration);
-authRouter.post('/login', AuthController.login);
 
-
-export {authRouter};

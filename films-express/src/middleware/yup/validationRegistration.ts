@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import {NextFunction, Request, Response} from "express";
-import {HttpException} from "./exceptions";
+import {HttpException} from "../exceptions";
 import {ValidationError} from "yup";
 
 

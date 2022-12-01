@@ -7,7 +7,7 @@ require('dotenv').config()
 
 class AuthModel {
 	async getCandidateDuplicate(email: string, login: string) {
-		return Users.query().where({login}).orWhere({email}).skipUndefined();
+		return Users.query().skipUndefined().where({login}).orWhere({email});
 	}
 	
 	
