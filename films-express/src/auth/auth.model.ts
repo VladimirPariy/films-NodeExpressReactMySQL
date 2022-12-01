@@ -1,29 +1,41 @@
 import {Users} from '../database/Models/users';
 import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
+import {HttpException} from '../middleware/exceptions';
+
+require('dotenv').config()
 
 class AuthModel {
 	async getCandidateDuplicate(email: string, login: string) {
-		
-		const candidateDuplicate = await Users.query().where({login}).orWhere({email});
-		return candidateDuplicate
-		
+		return Users.query().where({login}).orWhere({email}).skipUndefined();
 	}
+	
 	
 	async registration(login: string, email: string, password: string) {
 		
 		const candidate = await this.getCandidateDuplicate(email, login);
 		if (candidate.length) {
-			return {message: 'User already exists'};
+			return new HttpException('User already exists', 400)
 		}
 		
 		const encryptedPass = await bcrypt.hash(password, 7);
 		
-		const user = await Users.query().insert({login, email, password: encryptedPass});
-		return user
+		return Users.query().insert({login, email, password: encryptedPass});
 	}
 	
-	async login(login: string, email: string, password: string) {
 	
+	async login(login: string, email: string, password: string) {
+		const candidate = await this.getCandidateDuplicate(email, login);
+		if (!candidate.length) {
+			return new HttpException('User is not found', 404)
+		}
+		
+		const validPassword = bcrypt.compareSync(password, candidate[0].password)
+		if (!validPassword) {
+			return new HttpException(`User inputted invalid password`, 400)
+		}
+		
+		return jwt.sign({_id: candidate[0]._id}, process.env.SECRET || '', {expiresIn: 10});
 	}
 }
 
