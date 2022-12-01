@@ -1,4 +1,5 @@
 import {Router} from 'express';
+
 import AuthController from "./auth.controller";
 import {userSchema, registrationValidation} from "../middleware/yup/validationRegistration";
 
