@@ -11,8 +11,8 @@
 /film-react/src/assets
 /film-react/.idea
 
-/films-express/node_modules
-/films-express/dist
+/films-express/node_modules/
+/films-express/dist/
 /films-express/.env
 
 /.idea

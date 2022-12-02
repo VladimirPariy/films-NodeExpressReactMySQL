@@ -1,7 +1,5 @@
-import type { Knex } from "knex";
 import mysql2 from 'mysql2';
 
-// Update with your config settings.
 
 module.exports = {
 	development: {
